@@ -1,0 +1,15 @@
+.input {
+    padding: 1rem 1rem;
+    outline: none;
+    border: var(--border-secondary);
+    font-size: 1.6rem;
+    border-radius: 4px;
+    transition: border 0.4s ease;
+}
+
+.input:focus {
+    border: var(--border-primary);
+}
+.input:hover {
+    border: var(--border-primary);
+}

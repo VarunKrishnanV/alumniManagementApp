@@ -1,0 +1,8 @@
+:root {
+    --primary: hsl(350, 66%, 38%);
+    --primary-dark: hsl(350, 66%, 28%);
+    --gray: #828282;
+
+    --border-secondary: 1.5px solid #cbcbcb;
+    --border-primary: 1.5px solid var(--primary);
+}

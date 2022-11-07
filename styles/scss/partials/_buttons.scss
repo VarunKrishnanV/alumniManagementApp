@@ -1,0 +1,37 @@
+.btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 2.8rem;
+    transition: transform 0.2s ease;
+    font-size: 1.8rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    transform: translateY(-0.1rem);
+}
+.btn:active {
+    transform: translateY(0.1rem);
+}
+
+.btn--primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    cursor: pointer;
+}
+
+.cta-sec {
+    margin-top: 40px;
+    text-align: center;
+}
