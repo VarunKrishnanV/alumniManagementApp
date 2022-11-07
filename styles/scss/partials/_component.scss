@@ -16,22 +16,3 @@
     display: none;
 }
 
-// input container -- label, input, sec cta
-.input__container {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    label {
-        font-size: 1.6rem;
-        color: #828282;
-        margin-bottom: 0.4rem;
-    }
-    .required {
-        color: red;
-    }
-    a {
-        text-align: right;
-        font-size: 1.4rem;
-        margin-top: 0.4rem;
-    }
-}
