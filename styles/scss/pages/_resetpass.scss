@@ -1,0 +1,29 @@
+#resetpass {
+    .main-container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .formContainer {
+        width: 30%;
+    }
+
+    .logoContainer {
+        display: flex;
+        margin: 50px 0;
+        align-items: center;
+        justify-content: center;
+    }
+    .form__heading {
+        margin-bottom: 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        .formContainer {
+            width: 80% !important;
+        }
+    }
+}

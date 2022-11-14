@@ -1,21 +1,70 @@
-<!doctype html>
-<html lang="en">
+<?php require "../includes/header.php" ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - AMA</title>
+<?php
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-    <link rel="stylesheet" href="../styles/scss/main.css">
+$pdo = new PDO('mysql:host=localhost;port=3306;dbname=alumni_virtual_office', 'root', '');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-</head>
+$firstname = "";
+$lastname = "";
+$college = "";
+$identity_number = "";
+$dept = "";
+$passed_out_year = "";
+$email = "";
+$contact = "";
+$password = "";
+$confirm_password = "";
+$timestamp = "";
+
+$password_mismatch = null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $college = $_POST['college'];
+    $identity_number = $_POST['identity_number'];
+    $dept = $_POST['dept'];
+    $passed_out_year = $_POST['passed_out_year'];
+    $email = $_POST['email'];
+    $contact = $_POST['contact'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $timestamp = date('Y-m-d H:i:s');
+
+
+    if ($password !== $confirm_password) {
+        $password_mismatch = "Password Mismatch";
+    }
+
+    if (!$password_mismatch) {
+        $statement = $pdo->prepare("INSERT INTO alumni (firstname, lastname, college, identity_number, dept, passed_out_year, email, contact, password, confirm_password, timestamp) VALUES (:firstname, :lastname, :college, :identity_number, :dept, :passed_out_year, :email, :contact, :password, :confirm_password, :timestamp)");
+
+
+        $statement->bindValue(':firstname', $firstname);
+        $statement->bindValue(':lastname', $lastname);
+        $statement->bindValue(':college', $college);
+        $statement->bindValue(':identity_number', $identity_number);
+        $statement->bindValue(':dept', $dept);
+        $statement->bindValue(':passed_out_year', $passed_out_year);
+        $statement->bindValue(':email', $email);
+        $statement->bindValue(':contact', $contact);
+        $statement->bindValue(':password', $password);
+        $statement->bindValue(':confirm_password', $confirm_password);
+        $statement->bindValue(':timestamp', $timestamp);
+
+
+        $statement->execute();
+    }
+}
+
+?>
+
 
 <body id="signup">
 
@@ -40,22 +89,23 @@
 
             <div class="formComponent">
                 <h2 class="form__heading">Create Account</h2>
-                <form action="" class="form">
+
+                <form action="" class="form" method="POST">
                     <div class="form__row">
                         <div class="input__container">
                             <label for="firstname">Firstname<span class="required">*</span> </label>
-                            <input id="firstname" type="text" class="input" name="firstname" required>
+                            <input id="firstname" type="text" class="input" name="firstname" required value=<?php echo $firstname ?>>
                         </div>
                         <div class="input__container">
                             <label for="lastname">Lastname<span class="required">*</span> </label>
-                            <input id="lastname" type="lastname" class="input" name="lastname">
+                            <input id="lastname" type="lastname" class="input" name="lastname" value="<?php echo $lastname ?>">
                         </div>
                     </div>
                     <div class="form__row">
                         <div class="input__container">
                             <label for="college">College name<span class="required">*</span> </label>
-                            <select id="college" type="text" class="input" name="college" required>
-                                <option value="pec">Paavai Engineering College</option>
+                            <select id="college" class="input" name="college" required>
+                                <option selected value="pec">Paavai Engineering College</option>
                                 <option value="pct">Paavai College of Technology</option>
                                 <option value="pce">Paavai College of Engineering</option>
                             </select>
@@ -65,14 +115,14 @@
                     <div class="form__row">
                         <div class="input__container">
                             <label for="identityNumber">Roll number / Register number (optional)</label>
-                            <input id="identityNumber" type="text" class="input" name="identityNumber">
+                            <input id="identityNumber" type="number" class="input" name="identity_number" value=<?php echo $identity_number ?>>
                         </div>
                     </div>
                     <div class="form__row">
                         <div class="input__container">
                             <label for="dept">department<span class="required">*</span> </label>
-                            <select id="dept" type="text" class="input" name="dept" required>
-                                <option value="CSE">B.E., Computer Science and Engineering</option>
+                            <select id="dept" class="input" name="dept" required>
+                                <option selected value="CSE">B.E., Computer Science and Engineering</option>
                                 <option value="CYBER">B.E., Cyber Security</option>
                                 <option value="IT">B.Tech., Information Technology</option>
                                 <option value="MECH">B.E., Mechanical Engineering</option>
@@ -83,19 +133,19 @@
                     <div class="form__row">
                         <div class="input__container">
                             <label for="passedOutIn">Passsed out in<span class="required">*</span> </label>
-                            <input id="passedOutIn" type="text" class="input" name="passedOutIn" required>
+                            <input id="passedOutIn" type="number" class="input" name="passed_out_year" required value=<?php echo $passed_out_year ?>>
                         </div>
                     </div>
                     <div class="form__row">
                         <div class="input__container">
                             <label for="email">Email<span class="required">*</span> </label>
-                            <input id="email" type="text" class="input" name="email" required>
+                            <input id="email" type="email" class="input" name="email" required value=<?php echo $email ?>>
                         </div>
                     </div>
                     <div class="form__row">
                         <div class="input__container">
                             <label for="mobile">Mobile number<span class="required">*</span> </label>
-                            <input id="mobile" type="text" class="input" name="mobile" required>
+                            <input id="mobile" type="number" class="input" name="contact" required value=<?php echo $contact ?>>
                         </div>
                     </div>
                     <div class="form__row">
@@ -107,7 +157,12 @@
                     <div class="form__row">
                         <div class="input__container">
                             <label for="password2">Confirm Password<span class="required">*</span> </label>
-                            <input id="password2" type="text" class="input" name="password2" required>
+                            <input id="password2" type="text" class="input" name="confirm_password" required>
+                            <?php if ($password_mismatch) : ?>
+                                <p class="text--error  fs-14">Password Mismatch</p>
+                            <?php endif ?>
+
+
                         </div>
                     </div>
 

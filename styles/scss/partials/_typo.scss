@@ -35,7 +35,11 @@ p {
         font-weight: $i * 100;
     }
 }
-
+@for $i from 1 through 20 {
+    .fs-#{$i} {
+        font-size: #{$i}px;
+    }
+}
 
 .text--secondary {
     color: #828282;
@@ -44,4 +48,18 @@ p {
 
 .text--primary {
     color: var(--primary);
+}
+
+.text--description {
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.text--center {
+    text-align: center;
+}
+
+.text--error {
+    color: var(--primary);
+    margin-top: 4px;
 }
